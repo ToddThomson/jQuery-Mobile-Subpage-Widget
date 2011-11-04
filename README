@@ -1,0 +1,22 @@
+Description
+
+    A jQuery Mobile widget that allows subpages to be added to pages. This is useful when a mobile view
+    needs to be structured as a number of partial views with page transitions between them. This gives a
+    HTML5 mobile app more of a native feel. For views of this type the added benefit is that only 1 AJAX 
+    request is needed.
+    
+Usage
+
+   Add a stack of child divs with data-role="subpage" to a parent div with data-role="page".
+
+Notes
+
+    Subpage div's are automatically detahed from the parent page div and inserted into the DOM when the parent
+    page is loaded. When the parent page is hidden, the child subpages are removed from the DOM.
+
+    The functionality provided by this widget is a workaround for the jQuery Mobile loadPage() function which
+    only loads the first page in an AJAX response. 
+
+Demo
+
+    Coming soon..
