@@ -7,12 +7,12 @@ Description
     
 Usage
 
-   Add a stack of child divs with data-role="subpage" to a parent div with data-role="page".
+    Add a stack of child div's with data-role="subpage" to a parent div with data-role="page".
 
 Notes
 
-    Subpage div's are automatically detahed from the parent page div and inserted into the DOM when the parent
-    page is loaded. When the parent page is hidden, the child subpages are removed from the DOM.
+    Subpage div's are automatically detached from the parent page div and inserted into the DOM when the parent
+    page is loaded. When the parent page is hidden, the child subpage div's are removed from the DOM.
 
     The functionality provided by this widget is a workaround for the jQuery Mobile loadPage() function which
     only loads the first page in an AJAX response. 
