@@ -19,4 +19,84 @@ Notes
 
 Demo
 
-    Coming soon..
+    Please visit the http://www.integra-international.net website ( you will need use an actual mobile device or modify your browser's user-agent string [ safari is a good choice for this ] ) to launch the new Integra Mobile web app which utilizes the subpage widget.
+
+After the web app launches, press the info button on RHS of the header bar. Next select the "Integra Mobile" list item. The 'Integra Mobile' page contains a subpage which is accessible through the 'About' list item.
+
+Code
+
+   Please note that I define a subpages section ( I use Microsoft MVC Razor views *.cshtml ). This section get inserted at the start of the page div via a .cshtml master view.
+
+------------------------ 
+
+@{
+    ViewBag.Title = "Integra - About";
+    ViewBag.PageTheme = "b";
+    ViewBag.PageId = "mui-id-1001";
+}
+
+@section SubPages {
+
+@* mobile-about subpage.. *@
+<div data-role="subpage" id="mid-mobile-about" data-theme="b">
+    <div data-role="header" data-position="fixed">
+        <h1>Integra Mobile</h1>
+        <a data-rel="back" href="#/home/about" data-icon="arrow-l" data-direction="reverse" class="alt ui-btn-left">Back</a>
+    </div>
+    <div data-role="content">
+        <h2 class="mui-field-title">General</h2>
+        <div class="mui-field-inset ui-corner-all ui-shadow">
+            <p>
+                Welcome to the new Integra Mobile web app. Use this web app to locate Integra member firms and contacts, 
+                view mergers and acquisitions with our Deal Board or generally learn everything about Integra. We hope you 
+                enjoy using this web app and would like to hear from you with your feedback.
+            </p>
+        </div>
+        <h2 class="mui-field-title">Contact</h2>
+        <div class="mui-field-inset ui-corner-all ui-shadow">
+            <p>
+                If you have any questions or concerns about the Integra Mobile web app we'd love to hear from you. Please send an email message to
+                <a href="mailto:TThomson@integra-international.net?subject=Integra Mobile">Achilles Software</a>
+            </p>
+        </div>
+        <h2 class="mui-field-title">Copyright</h2>
+        <div class="mui-field-inset ui-corner-all ui-shadow">
+            
+            <p>
+                Copyright 2011 Achilles Software. All Rights Reserved.
+            </p>
+        </div>
+    </div>
+</div>
+}
+
+@* Body.. *@
+<div data-role="header" data-position="fixed">
+    <h1>Integra Mobile</h1>
+    <a data-rel="back" href="#info-page" data-icon="arrow-l" data-direction="reverse" class="ui-btn-left">Back</a>
+</div>
+<div data-role="content">
+<script>
+    $('#mui-id-1001').live('pageinit', function (event) {
+        if ('standalone' in navigator && !navigator.standalone && (/iphone|ipod|ipad/gi).test(navigator.platform) && (/Safari/i).test(navigator.appVersion)) {
+            var addToHomeConfig = {
+                touchIcon: true
+            };
+
+            var pageElement = $('#mui-id-1001');
+            addToHomeShow(pageElement);
+        }
+    });
+</script>
+    <ul data-role="listview" data-inset="true" data-theme="c">
+        <li class="ui-li-static">
+            <span class="mui-li-field">Version</span>
+            <span class="mui-li-string">1.0.rc</span>
+        </li>
+        <li>
+            <a href="#@Url.Content( "~/home/about" )&ui-page=mid-mobile-about">About</a>
+        </li>
+    </ul>
+</div>
+
+ 
