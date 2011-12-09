@@ -24,7 +24,7 @@
 *   Subpages are detached from parent page and added/removed to/from the DOM.
 *   The functionality provided by this widget is a workaround for the jQuery Mobile
 *   loadPage() function which only loads the first page in an AJAX response. 
-*/     
+*/
  
 (function ($, undefined) {
 
@@ -33,7 +33,7 @@
 
     $.widget("mobile.subpage", $.mobile.widget, {
         options: {
-            initSelector: ":jqmData(role='subpage')"
+			initSelector: ":jqmData(role='subpage'), :jqmData(role='subpage-dialog')"
         },
 
         _create: function () {
@@ -62,21 +62,32 @@
 
             var subpageUId = subpageId || ++subpageCountPerPage[parentId];
             var subpageId = subpage.attr("id") || subpageUId;
+			var subpageType = subpage.jqmData("role");
+			var subpageContent = subpage.find(":jqmData(role='content')");
             var subpageUrl = (parentUrl || "") + "&" + $.mobile.subPageUrlKey + "=" + subpageUId;
 
             var newPage = subpage.detach();
 
             newPage
                 .attr("data-" + $.mobile.ns + "url", subpageUrl)
-                .attr("data-" + $.mobile.ns + "role", 'page')
-				.appendTo($.mobile.pageContainer);
+                .attr("data-" + $.mobile.ns + "role", 'page');
+            // work-around for dialogs not getting default content theme of "c"
+            if (subpageType === "subpage-dialog" && subpageContent.jqmData("theme") === undefined) {
+                subpageContent.attr("data-" + $.mobile.ns + "theme", 'c');
+            }
+            newPage.appendTo($.mobile.pageContainer);
 
-            newPage.page();
+            if (subpageType === "subpage") {
+                newPage.page();
+            }
+            else {
+                newPage.dialog();
+            }
 
             // on pagehide, remove any nested pages along with the parent page, as long as they aren't active
             // and aren't embedded
             if (parentPage.is(":jqmData(external-page='true')") &&
-			    parentPage.data("page").options.domCache === false) {
+                parentPage.data("page").options.domCache === false) {
 
                 var newRemove = function (e, ui) {
                     var nextPage = ui.nextPage, npURL;
@@ -92,8 +103,8 @@
 
                 // unbind the original page remove and replace with our specialized version
                 parentPage
-				    .unbind("pagehide.remove")
-				    .bind("pagehide.remove", newRemove);
+                    .unbind("pagehide.remove")
+                    .bind("pagehide.remove", newRemove);
             }
         },
 
