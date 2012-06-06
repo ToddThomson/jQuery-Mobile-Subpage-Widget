@@ -1,5 +1,5 @@
 /*
-* jQuery Mobile Framework : "subpage" plugin
+* jQuery Mobile Framework SubPage Widget, version 1.1
 * Copyright(c) Achilles Software.
 * Authored by Todd J. Thomson, achilles@telus.net
 * Dual licensed under the MIT or GPL Version 2 licenses.
@@ -10,6 +10,11 @@
 * http://jquery.org/license
 */
 
+/* 
+* Tested with dependent libraries:
+*    jQuery Mobile version 1.1
+*/
+
 /*
 * Description
 *
@@ -17,7 +22,8 @@
 *
 * Usage
 *
-*   Add child divs with data-role="subpage" to a parent div with data-role="page".
+*   Add child divs with data-role="subpage" or data-role="subpage-dialog"
+*   to a parent div with data-role="page".
 *
 * Notes
 *
@@ -25,7 +31,7 @@
 *   The functionality provided by this widget is a workaround for the jQuery Mobile
 *   loadPage() function which only loads the first page in an AJAX response. 
 */
- 
+
 (function ($, undefined) {
 
     // Keeps track of the number of subpages per parent page UID
@@ -33,14 +39,15 @@
 
     $.widget("mobile.subpage", $.mobile.widget, {
         options: {
-			initSelector: ":jqmData(role='subpage'), :jqmData(role='subpage-dialog')"
+            initSelector: ":jqmData(role='subpage'), :jqmData(role='subpage-dialog')"
         },
 
         _create: function () {
             var t = this;
-            this.parentPage = this.element.closest(".ui-page");
 
-            // create subpage markup
+            this.parentPage = this.element.closest(":jqmData(role='page')");
+
+            // Create subpage markup
             t.element.addClass(function (i, orig) {
                 return orig + " ui-subpage ";
             });
@@ -52,7 +59,7 @@
             var self = this;
             var subpage = this.element;
             var subpageId = subpage.attr("id");
-            var parentPage = subpage.closest(".ui-page");
+            var parentPage = subpage.closest(":jqmData(role='page')");
             var parentUrl = parentPage.jqmData("url");
             var parentId = parentUrl || parentPage[0][$.expando];
 
@@ -62,8 +69,8 @@
 
             var subpageUId = subpageId || ++subpageCountPerPage[parentId];
             var subpageId = subpage.attr("id") || subpageUId;
-			var subpageType = subpage.jqmData("role");
-			var subpageContent = subpage.find(":jqmData(role='content')");
+            var subpageType = subpage.jqmData("role");
+            var subpageContent = subpage.find(":jqmData(role='content')");
             var subpageUrl = (parentUrl || "") + "&" + $.mobile.subPageUrlKey + "=" + subpageUId;
 
             var newPage = subpage.detach();
@@ -71,10 +78,12 @@
             newPage
                 .attr("data-" + $.mobile.ns + "url", subpageUrl)
                 .attr("data-" + $.mobile.ns + "role", 'page');
+
             // work-around for dialogs not getting default content theme of "c"
             if (subpageType === "subpage-dialog" && subpageContent.jqmData("theme") === undefined) {
                 subpageContent.attr("data-" + $.mobile.ns + "theme", 'c');
             }
+
             newPage.appendTo($.mobile.pageContainer);
 
             if (subpageType === "subpage") {
@@ -117,7 +126,9 @@
     });
 
     // Auto self-init widgets
-    $(document).bind("pagecreate create", function (e) {
+    // TJT: With jQM 1.1.x we bind to pagebeforecreate before any widgets start to enhance the page.
+    //      See Issue: #4496
+    $(document).bind("pagebeforecreate", function (e) {
         $($.mobile.subpage.prototype.options.initSelector, e.target).subpage();
     });
 
