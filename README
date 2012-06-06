@@ -11,7 +11,8 @@ Description
     
 Usage
 
-    Add a stack of child div's with data-role="subpage" to a parent div with data-role="page".
+    Add a stack of child div's with data-role="subpage" or data-role="subpage-dialog" to a parent div with
+    data-role="page".
 
 Notes
 
@@ -23,13 +24,14 @@ Notes
 
 Demo
 
-    Please visit the http://www.integra-international.net website ( you will need use an actual mobile device or modify your browser's user-agent string [ safari is a good choice for this ] ) to launch the new Integra Mobile web app which utilizes the subpage widget.
-
-After the web app launches, press the info button on RHS of the header bar. Next select the "Integra Mobile" list item. The 'Integra Mobile' page contains a subpage which is accessible through the 'About' list item.
+    Please visit the http://m.integra-international.net website  to launch the new Integra Mobile web app which utilizes the subpage widget.
+    After the web app launches, press the info button on RHS of the header bar. Next select the "Integra Mobile" list item. The 'Integra Mobile'
+    page contains a subpage which is accessible through the 'About' list item.
 
 Code
 
-   Please note that I define a subpages section ( I use Microsoft MVC Razor views *.cshtml ). This section get inserted at the start of the page div via a .cshtml master view.
+    Please note that I define a subpages section ( I use Microsoft MVC Razor views *.cshtml ). This section get inserted at the start of the page
+    div via a .cshtml master view.
 
 ------------------------ 
 
