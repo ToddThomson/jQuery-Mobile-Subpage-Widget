@@ -4,10 +4,15 @@ Version
 
 Description
 
-    A jQuery Mobile widget that allows subpages to be added to pages. This is useful when a mobile view
-    needs to be structured as a number of partial views with page transitions between them. This gives a
-    HTML5 mobile app more of a native feel. For views of this type the added benefit is that only 1 AJAX 
-    request is needed.
+    A jQuery Mobile widget that allows subpages to be added to pages. This is useful
+    when a mobile view needs to be structured as a number of partial views with page
+    transitions between them. This gives a HTML5 mobile app more of a native feel.
+    For views of this type the added benefit is that only 1 AJAX request is needed.
+
+    The functionality provided by this widget is a workaround for the jQuery Mobile
+    loadPage() function which only loads the first page in an AJAX response. You do not
+    use this widget on your initial document load. 
+    
     
 Usage
 
