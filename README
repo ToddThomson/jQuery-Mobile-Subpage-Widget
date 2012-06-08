@@ -10,33 +10,36 @@ Description
     For views of this type the added benefit is that only 1 AJAX request is needed.
 
     The functionality provided by this widget is a workaround for the jQuery Mobile
-    loadPage() function which only loads the first page in an AJAX response. You do not
-    use this widget on your initial document load. 
-    
+    loadPage() function which only loads the first page in an AJAX response. You do
+    not use this widget on your initial document load. 
     
 Usage
 
-    Add a stack of child div's with data-role="subpage" or data-role="subpage-dialog" to a parent div with
-    data-role="page".
+    Add a stack of child div's with data-role="subpage" or data-role="subpage-dialog"
+    to a parent div with data-role="page".
 
 Notes
 
-    Subpage div's are automatically detached from the parent page div and inserted into the DOM when the parent
-    page is loaded. When the parent page is hidden, the child subpage div's are removed from the DOM.
+    Subpage div's are automatically detached from the parent page div and inserted
+    into the DOM when the parent page is loaded. When the parent page is hidden, the
+    child subpage div's are removed from the DOM.
 
-    The functionality provided by this widget is a workaround for the jQuery Mobile loadPage() function which
-    only loads the first page in an AJAX response. 
+    The functionality provided by this widget is a workaround for the jQuery Mobile
+    loadPage() function which only loads the first page in an AJAX response. 
 
 Demo
 
-    Please visit the http://m.integra-international.net website  to launch the new Integra Mobile web app which utilizes the subpage widget.
-    After the web app launches, press the info button on RHS of the header bar. Next select the "Integra Mobile" list item. The 'Integra Mobile'
-    page contains a subpage which is accessible through the 'About' list item.
+    Please visit the http://m.integra-international.net website  to launch the new 
+    Integra Mobile web app which utilizes the subpage widget. After the web app 
+    launches, press the info button on RHS of the header bar. Next select the 
+    "Integra Mobile" list item. The 'Integra Mobile' page contains a subpage which
+    is accessible through the 'About' list item.
 
 Code
 
-    Please note that I define a subpages section ( I use Microsoft MVC Razor views *.cshtml ). This section get inserted at the start of the page
-    div via a .cshtml master view.
+    Please note that I define a subpages section ( I use Microsoft MVC Razor views 
+    *.cshtml ). This section get inserted at the start of the page div via a .cshtml
+    master view.
 
 ------------------------ 
 
