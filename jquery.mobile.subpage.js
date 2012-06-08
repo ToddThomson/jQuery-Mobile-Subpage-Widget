@@ -46,7 +46,7 @@
             var t = this;
 
             this.parentPage = this.element.closest(":jqmData(role='page')");
-
+            
             // Create subpage markup
             t.element.addClass(function (i, orig) {
                 return orig + " ui-subpage ";
@@ -60,7 +60,8 @@
             var subpage = this.element;
             var subpageId = subpage.attr("id");
             var parentPage = subpage.closest(":jqmData(role='page')");
-            var parentUrl = parentPage.jqmData("url");
+
+            var parentUrl = parentPage.jqmData("url") + "#" + parentPage.attr('id');
             var parentId = parentUrl || parentPage[0][$.expando];
 
             if (typeof subpageCountPerPage[parentId] === "undefined") {
