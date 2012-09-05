@@ -44,6 +44,11 @@
 
         _create: function () {
             var t = this;
+            t.element.detach();
+
+            if (document.getElementById(t.element.attr('id'))) {
+                return;
+            }
 
             // Subpages may only be defined with pages dynamically loaded via loadPage().
             // Pages loaded this way always have a unique data-url attribute set.
@@ -59,8 +64,8 @@
 
         _createSubPage: function () {
             var self = this,
-                subpage = this.element,
-                subpageType = subpage.jqmData("role");
+                newPage = this.element,
+                subpageType = newPage.jqmData("role");
 
             // Subpages should have an id attribute, but we cannot guarentee this.
             // Fallback to the subpage count with the page as the UId
@@ -68,17 +73,15 @@
                 subpageCountPerPage[this.parentPageUrl] = -1;
             }
 
-            var subpageUId = subpage.attr("id") || ++subpageCountPerPage[this.parentPageUrl];
+            var subpageUId = newPage.attr("id") || ++subpageCountPerPage[this.parentPageUrl];
             var subpageUrl = this.parentPageUrl + "&" + $.mobile.subPageUrlKey + "=" + subpageUId;
-
-            var newPage = subpage.detach();
 
             newPage
                 .attr("data-" + $.mobile.ns + "url", subpageUrl)
                 .attr("data-" + $.mobile.ns + "role", 'page');
 
             // work-around for dialogs not getting default content theme of "c"
-            var subpageContent = subpage.find(":jqmData(role='content')");
+            var subpageContent = newPage.find(":jqmData(role='content')");
 
             if (subpageType === "subpage-dialog" && subpageContent.jqmData("theme") === undefined) {
                 subpageContent.attr("data-" + $.mobile.ns + "theme", 'c');
