@@ -11,8 +11,8 @@ Description
 
     The functionality provided by this widget is a workaround for the jQuery Mobile
     loadPage() function which only loads the first page in an AJAX response. You do
-    not use this widget on your initial document load. 
-    
+    not use this widget on your initial document load.
+
 Usage
 
     Add a stack of child div's with data-role="subpage" or data-role="subpage-dialog"
@@ -25,23 +25,23 @@ Notes
     child subpage div's are removed from the DOM.
 
     The functionality provided by this widget is a workaround for the jQuery Mobile
-    loadPage() function which only loads the first page in an AJAX response. 
+    loadPage() function which only loads the first page in an AJAX response.
 
 Demo
 
-    Please visit the http://m.integra-international.net website  to launch the new 
-    Integra Mobile web app which utilizes the subpage widget. After the web app 
-    launches, press the info button on RHS of the header bar. Next select the 
+    Please visit the http://m.integra-international.net website  to launch the new
+    Integra Mobile web app which utilizes the subpage widget. After the web app
+    launches, press the info button on RHS of the header bar. Next select the
     "Integra Mobile" list item. The 'Integra Mobile' page contains a subpage which
     is accessible through the 'About' list item.
 
 Code
 
-    Please note that I define a subpages section ( I use Microsoft MVC Razor views 
+    Please note that I define a subpages section ( I use Microsoft MVC Razor views
     *.cshtml ). This section get inserted at the start of the page div via a .cshtml
     master view.
 
------------------------- 
+------------------------
 
 @{
     ViewBag.Title = "Integra - About";
@@ -61,8 +61,8 @@ Code
         <h2 class="mui-field-title">General</h2>
         <div class="mui-field-inset ui-corner-all ui-shadow">
             <p>
-                Welcome to the new Integra Mobile web app. Use this web app to locate Integra member firms and contacts, 
-                view mergers and acquisitions with our Deal Board or generally learn everything about Integra. We hope you 
+                Welcome to the new Integra Mobile web app. Use this web app to locate Integra member firms and contacts,
+                view mergers and acquisitions with our Deal Board or generally learn everything about Integra. We hope you
                 enjoy using this web app and would like to hear from you with your feedback.
             </p>
         </div>
@@ -75,7 +75,7 @@ Code
         </div>
         <h2 class="mui-field-title">Copyright</h2>
         <div class="mui-field-inset ui-corner-all ui-shadow">
-            
+
             <p>
                 Copyright 2011 Achilles Software. All Rights Reserved.
             </p>
@@ -113,4 +113,9 @@ Code
     </ul>
 </div>
 
- 
+ Change Log
+
+1.1 - 5 March 2013
+
+- Fixed incompatibility with jQueryMobile 1.3.0's change from storing data in .data('page') to .data('mobile-page').
+  The plugin now adapts based on the jQueryMobile version in use.
