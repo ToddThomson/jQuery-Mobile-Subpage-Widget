@@ -12,7 +12,7 @@
 
 /*
  * Tested with dependent libraries:
- *    jQuery Mobile version 1.1
+ *    jQuery Mobile version <= 1.3
  */
 
 /*
