@@ -10,7 +10,7 @@
 * http://jquery.org/license
 */
 
-/* 
+/*
  * Tested with dependent libraries:
  *    jQuery Mobile version 1.1
  */
@@ -29,7 +29,7 @@
 *
 *   Subpages are detached from parent page and added/removed to/from the DOM.
 *   The functionality provided by this widget is a workaround for the jQuery Mobile
-*   loadPage() function which only loads the first page in an AJAX response. 
+*   loadPage() function which only loads the first page in an AJAX response.
 */
 
 (function ($, undefined) {
@@ -43,14 +43,24 @@
         },
 
         _create: function () {
-            var t = this;
+            var self = this;
+
+            /*
+             * jQueryMobile changed the name of the data attribute where it stores data with version 1.3.
+             */
+            if ($.mobile.version >= 1.3) {
+                self.jqmDataLabel = 'mobile-page';
+            }
+            else {
+                self.jqmDataLabel = 'page';
+            }
 
             // Subpages may only be defined with pages dynamically loaded via loadPage().
             // Pages loaded this way always have a unique data-url attribute set.
-            this.parentPage = this.element.closest(":jqmData(role='page')");
-            this.parentPageUrl = this.parentPage.jqmData("url");
+            self.parentPage = self.element.closest(":jqmData(role='page')");
+            self.parentPageUrl = self.parentPage.jqmData("url");
 
-            t.element.addClass(function (i, orig) {
+            self.element.addClass(function (i, orig) {
                 return orig + " ui-subpage ";
             });
 
@@ -59,17 +69,17 @@
 
         _createSubPage: function () {
             var self = this,
-                subpage = this.element,
+                subpage = self.element,
                 subpageType = subpage.jqmData("role");
 
             // Subpages should have an id attribute, but we cannot guarentee this.
             // Fallback to the subpage count with the page as the UId
-            if (typeof subpageCountPerPage[this.parentPageUrl] === "undefined") {
-                subpageCountPerPage[this.parentPageUrl] = -1;
+            if (typeof subpageCountPerPage[self.parentPageUrl] === "undefined") {
+                subpageCountPerPage[self.parentPageUrl] = -1;
             }
 
-            var subpageUId = subpage.attr("id") || ++subpageCountPerPage[this.parentPageUrl];
-            var subpageUrl = this.parentPageUrl + "&" + $.mobile.subPageUrlKey + "=" + subpageUId;
+            var subpageUId = subpage.attr("id") || ++subpageCountPerPage[self.parentPageUrl];
+            var subpageUrl = self.parentPageUrl + "&" + $.mobile.subPageUrlKey + "=" + subpageUId;
 
             var newPage = subpage.detach();
 
@@ -95,8 +105,8 @@
 
             // on pagehide, remove any nested pages along with the parent page, as long as they aren't active
             // and aren't embedded
-            if ( this.parentPage.is(":jqmData(external-page='true')") &&
-                 this.parentPage.data("page").options.domCache === false) {
+            if ( self.parentPage.is(":jqmData(external-page='true')") &&
+                 self.parentPage.data(self.jqmDataLabel).options.domCache === false) {
 
                 var subpageRemove = function (e, ui) {
                     var nextPage = ui.nextPage, npURL;
@@ -111,7 +121,7 @@
                 };
 
                 // unbind the original page remove and replace with our specialized version
-                this.parentPage
+                self.parentPage
                     .unbind("pagehide.remove")
                     .bind("pagehide.remove", subpageRemove);
             }
