@@ -45,10 +45,12 @@
         _create: function () {
             var self = this;
 
+            var jqmVersion = $.mobile.version.split('.');
+
             /*
              * jQueryMobile changed the name of the data attribute where it stores data with version 1.3.
              */
-            if ($.mobile.version >= 1.3) {
+            if (jqmVersion[0] >= 1 && jqmVersion[1] >= 3) {
                 self.jqmDataLabel = 'mobile-page';
             }
             else {
@@ -64,7 +66,7 @@
                 return orig + " ui-subpage ";
             });
 
-            t._createSubPage();
+            self._createSubPage();
         },
 
         _createSubPage: function () {
