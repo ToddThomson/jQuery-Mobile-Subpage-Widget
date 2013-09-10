@@ -1,5 +1,5 @@
 ﻿/*
-* jQuery Mobile Framework SubPage Widget, version 1.3
+* jQuery Mobile Framework SubPage Widget, version 1.3.1
 * Copyright(c) Achilles Software.
 * Authored by Todd J. Thomson, achilles@telus.net
 * Dual licensed under the MIT or GPL Version 2 licenses.
