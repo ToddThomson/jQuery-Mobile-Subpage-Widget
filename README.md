@@ -1,6 +1,5 @@
 Version
 
-    1.3.1 for jQM version 1.3 branch, Sept. 9th, 2013
     1.2.0 for jQM version 1.2 branch, Sept. 9th, 2013
 
 Description
@@ -43,11 +42,6 @@ A Visual Studio MVC4 sample app is provided.
 
 Change Log
 
-1.3.1, 1.2.0 - 9 Sept 2013
+1.2.0 - 9 Sept 2013
 
 - Fixed issue #26.
-
-1.3 - 5 March 2013
-
-- Fixed incompatibility with jQueryMobile 1.3.0's change from storing data in .data('page') to .data('mobile-page').
-  The plugin now adapts based on the jQueryMobile version in use.
