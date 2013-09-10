@@ -1,7 +1,6 @@
 Version
 
-    1.3.1 for jQM version 1.3 branch, Sept. 9th, 2013
-    1.2.0 for jQM version 1.2 branch, Sept. 9th, 2013
+    vNext
 
 Description
 
