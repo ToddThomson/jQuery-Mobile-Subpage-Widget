@@ -1,8 +1,7 @@
 Version
 
     1.3.1 for jQM version 1.3 branch, Sept. 9th, 2013
-    1.2.0 for jQM version 1.2 branch, Sept. 9th, 2013
-
+    
 Description
 
     A jQuery Mobile widget that allows subpages to be added to pages. This is useful
@@ -43,7 +42,7 @@ A Visual Studio MVC4 sample app is provided.
 
 Change Log
 
-1.3.1, 1.2.0 - 9 Sept 2013
+1.3.1 - 9 Sept 2013
 
 - Fixed issue #26.
 
