@@ -1,0 +1,29 @@
+﻿<div data-role="page" id="subpage-parent">
+    @* Test subpage
+
+        Use the subpage id in the link to open the subpage. As with this sample:
+            href="#@Url.Content("~/home/subpageparent")&ui-page=test-subpage" 
+
+    *@
+	<div data-role="subpage" id="test-subpage" >
+		<div data-role="header" data-position="fixed">
+			<h1>Test Subpage</h1>
+			<a data-rel="back" data-icon="delete" data-iconpos="notext" data-direction="reverse" class="ui-btn-right">Close</a>
+		</div>
+		<div data-role="content">			
+			<p>This is the a subpage content</p>
+		</div>
+	</div>
+
+    @* Subpage Parent *@
+	<div data-role="header" data-position="fixed">
+		<a data-rel="back" data-icon="arrow-l" data-iconpos="notext" data-direction="reverse">Back</a>
+		<h1>Subpage Parent</h1>
+        <a href="@Url.Content("~/home")" data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>
+	</div>
+	<div data-role="content">
+        <p>The subpages have now been loaded and inserted into the DOM.</p>
+        @* Link to subpage *@   
+        <a href="#@Url.Content("~/home/subpageparent")&ui-page=test-subpage" data-role="button" data-transition="fade">Open test subpage</a>		
+	</div>
+</div>
