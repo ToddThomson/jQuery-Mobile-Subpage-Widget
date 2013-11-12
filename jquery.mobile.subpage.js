@@ -1,5 +1,5 @@
 ﻿/*
-* jQuery Mobile Framework SubPage Widget, version 1.3.1
+* jQuery Mobile Framework SubPage Widget, version 1.3.2
 * Copyright(c) Achilles Software.
 * Authored by Todd J. Thomson, achilles@telus.net
 * Dual licensed under the MIT or GPL Version 2 licenses.
@@ -127,7 +127,7 @@
     // TJT: With jQM 1.2 we bind to pagecreate before any widgets start to enhance the page.
     //      See Subpage Widget Issue: #26
 
-    $(document).bind("pagecreate create", function (e) {
+    $(document).bind("pagebeforecreate create", function (e) {
         $.mobile.subpage.prototype.enhanceWithin(e.target);
     });
 })(jQuery);
