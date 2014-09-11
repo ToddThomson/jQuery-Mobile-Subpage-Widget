@@ -1,6 +1,6 @@
 Version
 
-    vNext
+    1.4.3
 
 Description
 
@@ -41,6 +41,10 @@ A Visual Studio MVC4 sample app is provided.
 
 
 Change Log
+
+1.4.3 - 11 Sept 2014
+
+- Fixed issue #30, Support for jQM branch 1.4.x
 
 1.3.1, 1.2.0 - 9 Sept 2013
 
