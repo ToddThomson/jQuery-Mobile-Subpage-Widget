@@ -37,7 +37,7 @@
     // Keeps track of the number of subpages per parent page UId
     var subpageCountPerPage = {};
 
-    $.widget( "achilles.subpage", {
+    $.widget( "mobile.subpage", {
         options: {
             initSelector: ":jqmData(role='subpage'), :jqmData(role='subpage-dialog')"
         },
@@ -49,6 +49,9 @@
             // Pages loaded this way always have a unique data-url attribute set.
             self.parentPage = self.element.closest( ":jqmData(role='page')" );
             self.parentPageUrl = self.parentPage.jqmData( "url" );
+            
+            // Only allow parent page removal based on the subpage widget event handlers
+            self.preventParentPageRemove = true;
 
             self.element.addClass( function( i, orig ) {
                 return orig + " ui-subpage ";
@@ -92,32 +95,67 @@
                 newPage.dialog();
             }
 
-            // On pagehide, remove any nested pages along with the parent page, as long as they aren't active
-            // and aren't embedded
-            if ( self.parentPage.is( ":jqmData(external-page='true')" ) &&
-                 self.parentPage.data( "mobile-page" ).options.domCache === false ) {
+            self._addParentPageSubpage( newPage );
 
-                var subpageRemove = function( e, ui ) {
+            // On subpage parent pagehide.remove event, remove any subpages along with the parent page when navigation is away
+            // from the parent page to a page that is not a child of the parent page.
+            if ( !self.parentPage.data( "mobile-page" ).options.domCache &&
+                  self.parentPage.is( ":jqmData(external-page='true')" ) ) {
+
+                var parentPageHideRemove = function( e, ui ) {
                     var nextPage = ui.nextPage, npURL;
 
                     if ( ui.nextPage ) {
                         npURL = nextPage.jqmData( "url" );
-                        if ( npURL.indexOf( self.parentPageUrl + "&" + $.mobile.subPageUrlKey ) !== 0 ) {
-                            self.childPages().remove();
-                            self.parentPage.remove();
+                        var parentUrlBase = self.parentPageUrl + "&" + $.mobile.subPageUrlKey;
+                        var indx = npURL.indexOf( self.parentPageUrl + "&" + $.mobile.subPageUrlKey );
+
+                        if ( indx < 0 ) {
+                            self._removeParentPageSubpages();
+
+                            // Allow the parent page to be removed
+                            self.preventParentPageRemove = false;
+                        } else {
+                            // Don't allow the parent page to be removed
+                            self.preventParentPageRemove = true;
                         }
+
+                        return;
+                    }
+                };
+                
+                var parentPageRemove = function( e ) {
+                    if ( self.preventParentPageRemove ) {
+                        e.preventDefault();
                     }
                 };
 
                 // Unbind the original page remove and replace with our specialized version
                 self.parentPage
+                    .off( "pageremove" )
+                    .on( "pageremove", parentPageRemove );
+
+                self.parentPage
                     .unbind( "pagehide.remove" )
-                    .bind( "pagehide.remove", subpageRemove );
+                    .bind( "pagehide.remove", parentPageHideRemove );
             }
         },
 
+        _removeParentPageSubpages: function() {
+            var $subpages = ( this.parentPage.jqmData( "subpages" ) || $() );
+            
+            $subpages.remove();
+        },
+    
+        _addParentPageSubpage: function( newSubpage ) {
+            var subpages = this.childPages();
+
+            this.parentPage.jqmData( "subpages", $( subpages ).add( newSubpage ) );
+        },
+
+        // API
         childPages: function() {
-            return $( ":jqmData(url^='" + this.parentPageUrl + "&" + $.mobile.subPageUrlKey + "')" );
+            return this.parentPage.jqmData( "subpages" ) || $();
         }
     } );
 } )( jQuery );
