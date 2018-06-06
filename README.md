@@ -1,3 +1,6 @@
+NOTE: This project is no longer active and is not being maintained. If you are interested
+in getting this widget to work with the current version of JQM please contact me.
+
 Version
 
     1.4.3
